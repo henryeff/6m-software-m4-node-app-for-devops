@@ -27,10 +27,10 @@ jobs:
           npm run test
 
 #Workflow - defines what sequence will the jobs run
-workflows: 
+workflows:
   simple_workflow: #workflow name
     jobs:
       - build
       - test:
-       requires:
+        requires:
           - build
