@@ -1,0 +1,36 @@
+version: 2.1
+# obrs - reusable packages for application
+orbs:
+  node: circlci/node@5.0.1
+  docker: circleci/docker@2.1.4
+# jobs - set of intstructions / functions
+jobs:
+  build: #job name
+  docker:
+    - image: cimg/node:16.10
+  steps:
+    - checkout
+    - node/install-packages:
+      pkg-manage: npm
+    - run: |
+      echo "installing dependencies...."
+      npm install
+  test:
+    docker:
+      - image: cimg/node:16:10
+    steps:
+      - checkout
+      - node/install-packages:
+        pgk-manager: npm
+      - run: |
+        echo "Running tests....."
+        npm run test
+
+#Workflow - defines what sequence will the jobs run
+workflows: 
+  simple_workflow: #workflow name
+  jobs:
+    - build
+    - test
+      requires:
+        -build
