@@ -13,8 +13,8 @@ jobs:
       - node/install-packages:
         pkg-manage: npm
       - run: |
-        echo "installing dependencies...."
-        npm install
+          echo "installing dependencies...."
+          npm install
   test:
     docker:
       - image: cimg/node:16:10
