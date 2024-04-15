@@ -21,7 +21,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          pgk-manager: npm
+          pkg-manager: npm
       - run: |
           echo "Running tests....."
           npm run test
