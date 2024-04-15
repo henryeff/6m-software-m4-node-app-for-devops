@@ -1,7 +1,7 @@
 version: 2.1
 # obrs - reusable packages for application
 orbs:
-  node: circlci/node@5.0.1
+  node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
 # jobs - set of intstructions / functions
 jobs:
