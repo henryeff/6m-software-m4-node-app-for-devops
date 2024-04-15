@@ -5,7 +5,7 @@ orbs:
   docker: circleci/docker@2.1.4
 # jobs - set of intstructions / functions
 jobs:
-  build: 
+  build:
     docker:
       - image: cimg/node:16.10
     steps:
@@ -28,7 +28,7 @@ jobs:
 
 #Workflow - defines what sequence will the jobs run
 workflows:
-  simple_workflow: test
+  simple_workflow:
     jobs:
       - build
       - test:
