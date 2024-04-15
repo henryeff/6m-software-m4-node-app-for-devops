@@ -11,20 +11,20 @@ jobs:
   steps:
     - checkout
     - node/install-packages:
-      pkg-manage: npm
+        pkg-manage: npm
     - run: |
-      echo "installing dependencies...."
-      npm install
+        echo "installing dependencies...."
+        npm install
   test:
     docker:
       - image: cimg/node:16:10
     steps:
       - checkout
       - node/install-packages:
-        pgk-manager: npm
+          pgk-manager: npm
       - run: |
-        echo "Running tests....."
-        npm run test
+          echo "Running tests....."
+          npm run test
 
 #Workflow - defines what sequence will the jobs run
 workflows: 
