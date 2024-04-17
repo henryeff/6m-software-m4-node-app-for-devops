@@ -33,8 +33,10 @@ jobs:
       - docker/check
       - docker/build: #build the image
           image: henryeff/education-space
+          tag: v1.1.0
       - docker/push: #push the image to the specified account in the environment variables
           image: henryeff/education-space
+          tag: v1.1.0
 #Workflow - defines what sequence will the jobs run
 workflows:
   simple_workflow:
