@@ -25,7 +25,16 @@ jobs:
       - run: |
           echo "Running tests....."
           npm run test
-
+  publish: #also known as the build and push
+    executor: docker/docker #define the execution environment in which the steps of a job will run
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build: #build the image
+          image: henryeff/education-space
+      - docker/push: #push the image to the specified account in the environment variables
+          image: henryeff/education-space
 #Workflow - defines what sequence will the jobs run
 workflows:
   simple_workflow:
@@ -34,3 +43,6 @@ workflows:
       - test:
           requires:
             - build
+      - publish:
+          requires:
+            - test
