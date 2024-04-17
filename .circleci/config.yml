@@ -34,10 +34,10 @@ jobs:
       - docker/check
       - docker/build: #build the image
           image: henryeff/education-space
-          tag: v1.1.0
+          tag: v1.1.1
       - docker/push: #push the image to the specified account in the environment variables
           image: henryeff/education-space
-          tag: v1.1.0
+          tag: v1.1.1
 
   deploy:
     docker:
@@ -48,7 +48,7 @@ jobs:
       - checkout
       - run:
           name: Heroku Container Push
-          commands: |
+          command: |
             heroku container:login
             heroku container:push web -a hendry-su-devops
             heroku container:release web -a hendry-su-devops
