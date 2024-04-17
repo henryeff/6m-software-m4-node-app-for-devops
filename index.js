@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const print = require("./controller");
 
+app.use(bodyParser.json());
 app.get("/", print);
 
 app.get("/introduce", (req, res) => {
