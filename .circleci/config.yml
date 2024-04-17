@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
+  heroku: circleci/docker@2.0.0
 # jobs - set of intstructions / functions
 jobs:
   build:
@@ -37,6 +38,20 @@ jobs:
       - docker/push: #push the image to the specified account in the environment variables
           image: henryeff/education-space
           tag: v1.1.0
+
+  deploy:
+    docker:
+      - image: cimg/node:16.10
+    steps:
+      - setup_remote_docker
+      - heroku/install
+      - checkout
+      - run:
+          name: Heroku Container Push
+          commands: |
+            heroku container:login
+            heroku container:push web -a hendry-su-devops
+            heroku container:release web -a hendry-su-devops
 #Workflow - defines what sequence will the jobs run
 workflows:
   simple_workflow:
@@ -48,3 +63,6 @@ workflows:
       - publish:
           requires:
             - test
+      - deploy:
+          requires:
+            - publish
