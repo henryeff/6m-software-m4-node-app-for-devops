@@ -56,7 +56,7 @@ jobs:
 
   scan:
     docker:
-      - image: cimg/node:16:10
+      - image: cimg/node:16.10
     environment: #environment allow us to create an environment for the job and allows us to create custom environment varibales
       IMAGE_NAME: henryeff/education-space
     steps:
