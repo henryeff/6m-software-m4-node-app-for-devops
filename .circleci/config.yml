@@ -71,8 +71,8 @@ jobs:
 workflows:
   simple_workflow:
     jobs:
-      - build
-      #additional filters
+      - build:
+          #additional filters
           filters:
             branches:
               only: main #build job would only run when code changes are pushed to the main branch
@@ -87,7 +87,7 @@ workflows:
             - build
           filters:
             branches:
-              only: main    
+              only: main
 #      - publish:
 #          requires:
 #            - test
