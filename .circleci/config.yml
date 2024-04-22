@@ -66,6 +66,7 @@ jobs:
       - run: docker build -t $IMAGE_NAME . #$IMAGE_NAME gets the value from the environment we created above
       - snyk/scan:
           docker-image-name: $IMAGE_NAME
+          severity: high,critical
 
 #Workflow - defines what sequence will the jobs run
 workflows:
