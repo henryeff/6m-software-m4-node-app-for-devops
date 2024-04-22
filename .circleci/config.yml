@@ -83,7 +83,7 @@ workflows:
             branches:
               only: main
       - scan:
-          requres:
+          requires:
             - build
           filters:
             branches:
