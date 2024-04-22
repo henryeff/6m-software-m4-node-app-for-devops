@@ -3,7 +3,8 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.1
   docker: circleci/docker@2.1.4
-  heroku: circleci/heroku@2.0.0
+  #  heroku: circleci/heroku@2.0.0
+  snyk: snyk/snyk@1.5.0 #compare the node and docker orbs, the snyk orbs with snyk and it's considered a third party orb
 # jobs - set of intstructions / functions
 jobs:
   build:
@@ -52,17 +53,44 @@ jobs:
             heroku container:login
             heroku container:push web -a hendry-su-devops
             heroku container:release web -a hendry-su-devops
+
+  scan:
+    docker:
+      - image: cimg/node:16:10
+    environment: #environment allow us to create an environment for the job and allows us to create custom environment varibales
+      IMAGE_NAME: henryeff/education-space
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker/check
+      - run: docker build -t $IMAGE_NAME . #$IMAGE_NAME gets the value from the environment we created above
+      - snyk/scan:
+          docker-image-name: $IMAGE_NAME
+
 #Workflow - defines what sequence will the jobs run
 workflows:
   simple_workflow:
     jobs:
       - build
+      #additional filters
+          filters:
+            branches:
+              only: main #build job would only run when code changes are pushed to the main branch
       - test:
           requires:
             - build
-      - publish:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - publish
+          filters:
+            branches:
+              only: main
+      - scan:
+          requres:
+            - build
+          filters:
+            branches:
+              only: main    
+#      - publish:
+#          requires:
+#            - test
+#      - deploy:
+#          requires:
+#            - publish
